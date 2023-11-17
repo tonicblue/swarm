@@ -1,3 +1,3 @@
 # swarm
 
-[Edit in Codeflow ⚡️](https://stackblitz.com/~/github.com/tonicblue/swarm)
+a block editor of sorts
