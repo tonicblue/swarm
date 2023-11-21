@@ -1,0 +1,201 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:json/recommended",
+    "prettier"
+  ],
+  "env": {
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint", "json"
+  ],
+  "globals": {
+    "context": true,
+    "imports": true,
+    "functions": true,
+    "metadata": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "globalReturn": true
+    }
+  },
+  "rules": {
+    "@typescript-eslint/ban-ts-comment": ["off"],
+    "json/*": ["error", "allowComments"],
+    "@typescript-eslint/triple-slash-reference": ["off"],
+    "nonblock-statement-body-position": ["warn", "below"],
+    "array-bracket-newline": ["warn", { "minItems": 2 }],
+    "semi-spacing": ["warn", { "before": false, "after": true }],
+    "space-before-function-paren": ["warn", "always"],
+    "space-before-blocks": ["warn", "always"],
+    "object-curly-newline": [
+      "warn",
+      {
+        "minProperties": 2
+      }
+    ],
+    "indent": [
+      "warn",
+      2,
+      {
+        "ArrayExpression": 1,
+        "SwitchCase": 1
+      }
+    ],
+    "quotes": [
+      "warn",
+      "single"
+    ],
+    "no-unreachable": [
+      "warn"
+    ],
+    "@typescript-eslint/no-explicit-any": ["off"],
+    "no-inner-declarations": ["off"],
+    "no-prototype-builtins": ["off"],
+    "no-unused-vars": ["off"],
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "vars": "local",
+        "args": "after-used",
+        "argsIgnorePattern": "^_",
+        "caughtErrors": "all",
+        "caughtErrorsIgnorePattern": "^ignore",
+        "ignoreRestSiblings": true
+      }
+    ],
+    "require-await": [
+      "off"
+    ],
+    "semi": [
+      "warn",
+      "always"
+    ],
+    "array-element-newline": [
+      "warn",
+      "consistent"
+    ],
+    "no-dupe-keys": [
+      "error"
+    ],
+    "no-dupe-class-members": [
+      "error"
+    ],
+    "newline-per-chained-call": [
+      "warn",
+      {
+        "ignoreChainWithDepth": 2
+      }
+    ],
+    "newline-before-return": ["warn"],
+    "brace-style": [
+      "warn",
+      "1tbs",
+      {
+        "allowSingleLine": true
+      }
+    ],
+    "arrow-parens": [
+      "warn",
+      "as-needed",
+      {
+        "requireForBlockBody": true
+      }
+    ],
+    "block-spacing": [
+      "warn",
+      "always"
+    ],
+    "comma-dangle": [
+      "warn",
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "never"
+      }
+    ],
+    "comma-spacing": [
+      "warn",
+      {
+        "before": false,
+        "after": true
+      }
+    ],
+
+    "no-use-before-define": ["off"],
+    "@typescript-eslint/no-use-before-define": [
+      "error",
+      {
+        "ignoreTypeReferences": true,
+        "typedefs": false,
+        "functions": false
+      }
+    ],
+    "no-var": [
+      "warn"
+    ],
+    "prefer-destructuring": [
+      "warn",
+      {
+        "array": false,
+        "object": false
+      },
+      {
+        "enforceForRenamedProperties": false
+      }
+    ],
+    "prefer-const": ["warn"],
+    "multiline-ternary": [
+      "warn",
+      "always-multiline"
+    ],
+    "no-await-in-loop": ["off"],
+    "no-debugger": ["off"],
+    "function-paren-newline": [
+      "warn",
+      "multiline-arguments"
+    ],
+
+    "no-multiple-empty-lines": ["warn", {
+      "max": 2
+    }],
+
+    "padded-blocks": ["warn", "never"],
+
+    "padding-line-between-statements": ["off"],
+    "@typescript-eslint/padding-line-between-statements": [
+      "warn",
+      {
+        "blankLine": "always",
+        "prev": [
+          "block", "block-like", "break", "class", "continue", "debugger", "do", "export",
+          "for", "function", "if", "iife", "import", "multiline-block-like", "multiline-const",
+          "multiline-expression", "multiline-let", "switch", "try", "while", "with"
+        ],
+        "next": [
+          "block", "block-like", "class", "debugger", "directive", "do",
+          "for", "function", "if", "iife", "multiline-block-like", "multiline-const", "multiline-var",
+          "switch", "throw", "try", "while", "with"
+        ]
+      },
+      {
+        "blankLine": "never",
+        "prev": [
+          "case", "default", "directive", "singleline-const", "singleline-let",
+          "singleline-var", "throw", "empty"
+        ],
+        "next": [
+          "break", "case", "continue", "default", "export", "import", "singleline-const",
+          "singleline-let", "singleline-var", "empty"
+        ]
+      }
+    ]
+  }
+}

@@ -1,16 +1,3 @@
-import KEY_BINDINGS from './keybindings';
-
-export enum Mode {
-  NORMAL = 'NORMAL',
-  EDIT = 'EDIT',
-  COMMAND = 'COMMAND',
-  SEARCH = 'SEARCH',
-  VISUAL = 'VISUAL',
-  DELETE = 'DELETE',
-  INSERT = 'INSERT',
-  PREVIEW = 'PREVIEW'
-}
-
 /**
  * TODO:
  * [ ] Code tidy
@@ -24,44 +11,89 @@ export enum Mode {
  * [ ] Block config/options panel
  */
 
-customElements.define('swarm-root',
-  class extends HTMLElement {
-    current: HTMLElement;
-    mode = Mode.NORMAL;
+import {
+  html, css, LitElement,
+} from 'lit';
+import {
+  customElement, property,
+} from 'lit/decorators.js';
 
-    constructor () {
-      super();
+import './index';
 
-      this.current = this;
-      this.registerKeyboardEvents();
-    }
+import KEY_BINDINGS from './keybindings';
+import { SwarmModeSelector } from './mode-selector';
+import { SwarmNodeSelector } from './node-selector';
 
-    find (selector: string) {
-      return Array.from(this.querySelectorAll(selector));
-    }
+export enum Mode {
+  NORMAL = 'NORMAL',
+  EDIT = 'EDIT',
+  COMMAND = 'COMMAND',
+  SEARCH = 'SEARCH',
+  VISUAL = 'VISUAL',
+  DELETE = 'DELETE',
+  INSERT = 'INSERT',
+  PREVIEW = 'PREVIEW'
+}
 
-    registerKeyboardEvents () {
-      window.addEventListener('keydown', (ev) => {
-        const combo = (
-          ev.ctrlKey
-            ? `Ctrl+${ev.key}`
-            : ev.key
-        );
+@customElement('swarm-root')
+export class SwarmRoot extends LitElement {
+  static styles = css`
 
-        const binding = KEY_BINDINGS[this.mode][combo];
+  `;
 
-        if (!binding) return;
+  current: HTMLElement = this;
+  modeSelector = document.createElement('swarm-mode-selector') as SwarmModeSelector;
+  nodeSelector = document.createElement('swarm-node-selector') as SwarmNodeSelector;
 
-        const [method, ...args] = binding;
-        console.log('COMMAND', method, args);
-
-        if (method === 'changeMode') this.changeMode.apply(this, args);
-      });
-    }
-
-    changeMode (newMode: Mode, ...args: any[]) {
-      console.log(`Changing mode from ${this.mode} to ${newMode}`);
-      this.mode = newMode;
-    }
+  private _mode = Mode.NORMAL;
+  get mode () {
+    return this._mode;
   }
-)
+  set mode (newMode: Mode) {
+    this._mode = newMode;
+  }
+
+  constructor () {
+    super();
+
+    document.body.appendChild(this.modeSelector);
+    document.body.appendChild(this.nodeSelector);
+  }
+
+  connectedCallback () {
+    super.connectedCallback();
+
+    window.addEventListener('keydown', this.handleKeydown.bind(this));
+    this.addEventListener('click', this.handleClick.bind(this));
+  }
+
+  render () {
+    return html`<slot></slot>`;
+  }
+
+  handleKeydown (ev: KeyboardEvent) {
+    const combo = ev.ctrlKey ? `Ctrl+${ev.key}` : ev.key;
+    const binding = KEY_BINDINGS[this.mode][combo];
+
+    if (!binding)
+      return;
+
+    const [
+      method, ...args
+    ] = binding;
+    console.log('COMMAND', method, args);
+
+    if (method === 'changeMode')
+      this.changeMode(...args);
+  }
+
+  handleClick (event: MouseEvent) {
+    console.log('Node selected', event.target);
+    this.nodeSelector.node = event.target as HTMLElement;
+  }
+
+  changeMode (newMode: Mode, ...args: any[]) {
+    console.log(`Changing mode from ${this.mode} to ${newMode}`);
+    this.mode = newMode;
+  }
+}

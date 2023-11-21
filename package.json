@@ -1,5 +1,6 @@
 {
-  "name": "vite-typescript-starter",
+  "name": "swarm",
+  "description": "a vimspired html editor",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,7 +10,17 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "typescript": "^5.0.2",
-    "vite": "^4.4.8"
+    "@typescript-eslint/eslint-plugin": "^5.9.0",
+    "@typescript-eslint/parser": "^5.60.0",
+    "eslint": "^8.1.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-json": "^3.1.0",
+    "sass": "^1.69.5",
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0"
+  },
+  "dependencies": {
+    "@medv/finder": "^3.1.0",
+    "lit": "^3.1.0"
   }
 }
